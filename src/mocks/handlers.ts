@@ -26,8 +26,6 @@ export const handlers = [
       | ''
       | 'active'
       | 'inactive'
-    const pageParam = Number(url.searchParams.get('page') ?? '0')
-    const pageSizeParam = Number(url.searchParams.get('pageSize') ?? '10')
 
     const filtered = filterUsers(db.users, query, status)
 
