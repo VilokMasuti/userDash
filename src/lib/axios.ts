@@ -11,4 +11,5 @@ export type PaginatedParams = {
   status?: 'active' | 'inactive'
   page?: number
   pageSize?: number
+  sort?: 'newest' | 'oldest' | 'az' | 'za'
 }

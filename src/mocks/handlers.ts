@@ -18,6 +18,25 @@ function filterUsers(
   return list
 }
 
+function sortUsers(list: User[], sort?: 'newest' | 'oldest' | 'az' | 'za') {
+  if (!sort) return list
+
+  return [...list].sort((a, b) => {
+    switch (sort) {
+      case 'newest':
+        return b.createdAt.localeCompare(a.createdAt) // assuming string ISO dates
+      case 'oldest':
+        return a.createdAt.localeCompare(b.createdAt)
+      case 'az':
+        return a.name.localeCompare(b.name)
+      case 'za':
+        return b.name.localeCompare(a.name)
+      default:
+        return 0
+    }
+  })
+}
+
 export const handlers = [
   http.get('/api/users', ({ request }) => {
     const url = new URL(request.url)
@@ -26,8 +45,15 @@ export const handlers = [
       | ''
       | 'active'
       | 'inactive'
+    const sort = url.searchParams.get('sort') as
+      | 'newest'
+      | 'oldest'
+      | 'az'
+      | 'za'
+      | null
 
-    const filtered = filterUsers(db.users, query, status)
+    let filtered = filterUsers(db.users, query, status)
+    filtered = sortUsers(filtered, sort ?? undefined)
 
     // Safe pagination (zero-based)
     const total = filtered.length
