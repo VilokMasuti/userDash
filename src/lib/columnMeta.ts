@@ -27,7 +27,7 @@ export type ColumnMeta =
       width?: number
     }
 
-export const userColumnMeta: ColumnMeta[] = [
+export const defaultMeta: ColumnMeta[] = [
   {
     key: 'name',
     header: 'Name',

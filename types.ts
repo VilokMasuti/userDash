@@ -13,8 +13,7 @@ export type User = {
 }
 
 export type UsersResponse = {
-  data: {
-    totalCount: number
-    users: User[]
-  }
+  totalCount: number
+  users: User[]
+  status?: 'active' | 'inactive'
 }

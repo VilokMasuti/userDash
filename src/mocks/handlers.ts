@@ -1,5 +1,5 @@
 import { db } from '@/mocks/seed'
-import { http, HttpResponse } from 'msw'
+import { http, HttpResponse, passthrough } from 'msw'
 import type { User } from '../../types'
 
 function filterUsers(
@@ -26,16 +26,29 @@ export const handlers = [
       | ''
       | 'active'
       | 'inactive'
-    const page = Number(url.searchParams.get('page') ?? '0')
-    const pageSize = Number(url.searchParams.get('pageSize') ?? '10')
+    const pageParam = Number(url.searchParams.get('page') ?? '0')
+    const pageSizeParam = Number(url.searchParams.get('pageSize') ?? '10')
+
     const filtered = filterUsers(db.users, query, status)
 
-    // Simple  pagination
+    // Safe pagination (zero-based)
+    const total = filtered.length
+    const pageSizeNum = Number(url.searchParams.get('pageSize') ?? '10')
+    const pageNum = Number(url.searchParams.get('page') ?? '0')
+
+    const pageSize =
+      Number.isFinite(pageSizeNum) && pageSizeNum > 0 ? pageSizeNum : 10
+    const maxPageIndex = Math.max(0, Math.ceil(total / pageSize) - 1)
+    const page = Math.min(
+      Math.max(0, Number.isFinite(pageNum) ? pageNum : 0),
+      maxPageIndex
+    )
+
     const start = page * pageSize
     const end = start + pageSize
-    const pageItems = filtered.slice(start, end)
+    const users = filtered.slice(start, end)
 
-    return HttpResponse.json({ totalCount: filtered.length, users: pageItems })
+    return HttpResponse.json({ totalCount: total, users })
   }),
 
   http.patch('/api/users/:id', async ({ params }) => {
@@ -51,5 +64,8 @@ export const handlers = [
     }
     db.users[idx] = next
     return HttpResponse.json(next)
-  })
+  }),
+
+  // Keep LAST: passthrough anything not explicitly mocked
+  http.all('*', () => passthrough())
 ]
