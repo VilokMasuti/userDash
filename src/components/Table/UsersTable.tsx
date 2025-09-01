@@ -1,4 +1,4 @@
-import { UsersTableSkeleton } from '@/components/TableSkeleton'
+import { UsersTableSkeleton } from '@/components/ui/TableSkeleton'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
@@ -19,8 +19,8 @@ import {
   useMaterialReactTable
 } from 'material-react-table'
 import { useMemo } from 'react'
-import type { User } from '../../types'
-import { defaultMeta } from '../lib/columnMeta'
+import type { User } from '../../../types'
+import { defaultMeta } from '.././../lib/columnMeta'
 
 type StatusFilter = '' | 'active' | 'inactive'
 type SortOption = 'newest' | 'oldest' | 'az' | 'za'

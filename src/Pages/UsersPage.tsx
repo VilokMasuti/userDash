@@ -1,9 +1,10 @@
+import type { MRT_PaginationState } from 'material-react-table'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import type { MRT_PaginationState } from 'material-react-table'
-import UsersTable from '../components/UsersTable'
-import { getUsers, toggleUserStatus } from '../api/users'
+
+import UsersTable from '@/components/Table/UsersTable'
 import type { User, UsersResponse } from '../../types'
+import { getUsers, toggleUserStatus } from '../api/users'
 
 type StatusFilter = '' | 'active' | 'inactive'
 type SortOption = 'newest' | 'oldest' | 'az' | 'za'
@@ -18,7 +19,7 @@ export default function UsersPage() {
   const [sorting, setSorting] = useState<SortOption>('newest')
   const [pagination, setPagination] = useState<MRT_PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 10
   })
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export default function UsersPage() {
           status: status || undefined,
           page: pagination.pageIndex,
           pageSize: pagination.pageSize,
-          sort: sorting,
+          sort: sorting
         })
         if (!cancelled) {
           setData(res?.users ?? [])
@@ -63,7 +64,9 @@ export default function UsersPage() {
       )
       try {
         await toggleUserStatus(user.id)
-        toast.success(`User ${newStatus === 'active' ? 'activated' : 'deactivated'}`)
+        toast.success(
+          `User ${newStatus === 'active' ? 'activated' : 'deactivated'}`
+        )
       } catch {
         setData(prev)
         toast.error('Failed to update status')

@@ -4,9 +4,6 @@ export const UsersTableSkeleton = () => {
   return (
     <div className="space-y-4">
       {/* Page header */}
-      <div className="px-2">
-        <Skeleton className="h-6 w-40" />
-      </div>
 
       {/* Toolbar: search, status filter, view controls */}
       {/* <div className="flex flex-wrap items-center gap-3 px-2">
