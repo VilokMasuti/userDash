@@ -9,7 +9,7 @@ export const UsersTableSkeleton = () => {
       </div>
 
       {/* Toolbar: search, status filter, view controls */}
-      <div className="flex flex-wrap items-center gap-3 px-2">
+      {/* <div className="flex flex-wrap items-center gap-3 px-2">
         <div className="flex-1 min-w-[220px]">
           <Skeleton className="h-10 w-full" />
         </div>
@@ -20,7 +20,7 @@ export const UsersTableSkeleton = () => {
           <Skeleton className="h-10 w-10 rounded-md" />
           <Skeleton className="h-10 w-10 rounded-md" />
         </div>
-      </div>
+      </div> */}
 
       {/* Table header */}
       <div className="rounded-md border">
@@ -32,6 +32,8 @@ export const UsersTableSkeleton = () => {
           <Skeleton className="h-4 w-14" />
           <Skeleton className="h-4 w-16" />
           <div className="flex items-center justify-end gap-2">
+            <Skeleton className="h-8 w-8 rounded-md" />
+            <Skeleton className="h-8 w-8 rounded-md" />
             <Skeleton className="h-8 w-8 rounded-md" />
             <Skeleton className="h-8 w-8 rounded-md" />
             <Skeleton className="h-8 w-8 rounded-md" />
@@ -62,19 +64,17 @@ export const UsersTableSkeleton = () => {
             </div>
 
             {/* Joined date */}
-            <Skeleton className="h-4 w-20" />
+            <Skeleton className="h-6 w-28 rounded-full" />
 
             {/* Groups chips */}
             <div className="flex flex-wrap gap-2">
-              <Skeleton className="h-6 w-36 rounded-full" />
-              <Skeleton className="h-6 w-32 rounded-full" />
-              <Skeleton className="h-6 w-28 rounded-full" />
+              <Skeleton className="h-6 w-16 rounded-full" />
             </div>
 
             {/* Row actions */}
             <div className="ml-auto flex items-center justify-end gap-2">
-              <Skeleton className="h-8 w-24 rounded-md" />
-              <Skeleton className="h-8 w-24 rounded-md" />
+              <Skeleton className="h-8 w-16 rounded-md" />
+              <Skeleton className="h-8 w-16 rounded-md" />
             </div>
           </div>
         ))}
