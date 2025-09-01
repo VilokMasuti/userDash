@@ -70,13 +70,19 @@ export default function UsersTable({
           ...baseColumn,
           Cell: ({ row }) =>
             row.original.groups?.length ? (
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-2">
                 {row.original.groups.map((g) => (
                   <Badge
                     key={g.id}
-                    className="px-2 py-0.5 text-xs rounded-md bg-slate-50 shadow-md text-black"
+                    className="px-3 py-1 text-xs font-medium rounded-full flex items-center gap-2
+             bg-slate-100 text-gray-700 border border-gray-200 shadow-sm
+             hover:bg-slate-100 hover:text-gray-700 dark:hover:bg-slate-100 dark:hover:text-gray-700"
                   >
-                    {g.name} - {g.role}
+                    <span className="w-2.5 h-2.5 rounded-full bg-indigo-500" />
+                    <span className="truncate">{g.name}</span>
+                    <span className="text-gray-500 text-[11px]">
+                      ({g.role})
+                    </span>
                   </Badge>
                 ))}
               </div>
@@ -93,26 +99,37 @@ export default function UsersTable({
             const active = row.original.status === 'active'
             return (
               <div className="flex items-center gap-2">
+                {/* Badge */}
                 <Badge
-                  className={
+                  className={cn(
+                    'px-3 py-1 text-xs font-medium rounded-full flex items-center gap-1 border shadow-sm',
                     active
-                      ? 'px-2 py-0.5 text-sm rounded-md bg-green-600 text-white'
-                      : 'px-2 py-0.5 text-sm rounded-md bg-red-600 text-white'
-                  }
+                      ? 'bg-green-100 text-green-700 border-green-200 hover:bg-green-100 hover:text-green-700 dark:hover:bg-green-100 dark:hover:text-green-700'
+                      : 'bg-red-100 text-red-700 border-red-200 hover:bg-red-100 hover:text-red-700 dark:hover:bg-red-100 dark:hover:text-red-700'
+                  )}
                 >
+                  <span
+                    className={cn(
+                      'w-2 h-2 rounded-full',
+                      active ? 'bg-green-500' : 'bg-red-500'
+                    )}
+                  />
                   {active ? 'Active' : 'Inactive'}
                 </Badge>
+
+                {/* Toggle Button */}
                 <Button
                   size="sm"
-                  variant="outline"
-                  className={cn(
-                    'px-2 py-0.5 text-sm rounded-md',
-                    active
-                      ? 'border-red-500 bg-red-50 text-red-600'
-                      : 'border-green-500 bg-green-50 text-green-600'
-                  )}
+                  variant="outline" // keeps it neutral & modern
+                  className="flex items-center gap-2 px-3 py-1 text-sm rounded-full border-gray-300"
                   onClick={() => onToggle(row.original)}
                 >
+                  <span
+                    className={cn(
+                      'w-2.5 h-2.5 rounded-full',
+                      active ? 'bg-red-500' : 'bg-green-500'
+                    )}
+                  />
                   {active ? 'Deactivate' : 'Activate'}
                 </Button>
               </div>
