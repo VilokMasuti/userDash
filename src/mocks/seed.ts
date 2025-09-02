@@ -33,7 +33,7 @@ function makeUser(): User {
       .email({ firstName: first, lastName: last })
       .toLowerCase(),
     status: faker.datatype.boolean() ? 'active' : 'inactive',
-    createdAt: faker.date.past({ years: 3 }).toISOString(),
+    createdAt: faker.date.past({ years: 3 }).toISOString().split("T")[0],
     groups: Array.from(
       { length: faker.number.int({ min: 1, max: 3 }) },
       makeGroup
